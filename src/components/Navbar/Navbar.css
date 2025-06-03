@@ -1,0 +1,178 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 70px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.07);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.navbar-logo img {
+  height: 48px;
+  width: auto;
+  transition: transform 1s;
+  transform: scale(2.5);
+}
+
+.navbar-logo img:hover {
+  transform: scale(2.58) rotate(360deg);
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-menu li {
+  font-size: 1.1rem;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.navbar-menu li::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #ff7043;
+  transition: width 0.3s;
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+}
+
+.navbar-menu li:hover {
+  color: #ff7043;
+  transform: scale(1.06);
+}
+
+.navbar-menu li:hover::after {
+  width: 100%;
+}
+
+/* Group right-side icons and button closer together */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Search bar styling */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(255, 112, 67, 0.07);
+  padding: 2px 8px 2px 14px;
+  margin-right: 4px;
+}
+
+.search-bar input {
+  border: 2px solid rgb(247, 161, 146);
+  border-radius: 20px;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  padding: 6px 0;
+  width: 200px;
+  color: #333;
+  padding-left: 10px;
+  margin-right: 10px;
+}
+
+.search-bar .search-icon {
+  background: none;
+  border: none;
+  padding: 0 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar .search-icon img {
+  height: 22px;
+  width: 22px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08));
+  transition: transform 0.2s;
+}
+
+.search-bar .search-icon:hover img {
+  transform: scale(1.15);
+}
+
+.cart-icon {
+  margin: 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.cart-icon img {
+  height: 28px;
+  width: 28px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08));
+}
+
+.cart-icon:hover img {
+  transform: scale(1.15);
+}
+
+.sign-up button {
+  background: linear-gradient(90deg, #ff7043 0%, #ffa726 100%);
+  color: #fff;
+  border: none;
+  border-radius: 22px;
+  padding: 10px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 112, 67, 0.12);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.sign-up button:hover {
+  background: linear-gradient(90deg, #ffa726 0%, #ff7043 100%);
+  transform: translateY(-2px) scale(1.06);
+}
+
+.active-menu {
+    color: tomato;
+    font-weight: 700;
+    transform: scale(1.06);
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 0 16px;
+    height: auto;
+  }
+  .navbar-menu {
+    gap: 18px;
+    font-size: 0.98rem;
+  }
+  .navbar-logo img {
+    height: 38px;
+  }
+  .search-bar input {
+    width: 80px;
+    font-size: 0.95rem;
+  }
+  .cart-icon img {
+    height: 22px;
+    width: 22px;
+  }
+  .sign-up button {
+    padding: 8px 18px;
+    font-size: 0.95rem;
+  }
+  .navbar-actions {
+    gap: 6px;
+  }
+}
