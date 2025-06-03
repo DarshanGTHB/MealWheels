@@ -1,0 +1,85 @@
+.food-item-card {
+  position: relative;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 120px 20px 20px; /* more top padding for bigger image */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  max-width: 320px;
+  margin: 40px auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.food-item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.food-img-wrap {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 140px;
+  background: #fff;
+  border-radius: 16px; /* rounded rectangle */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.food-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.food-info {
+  text-align: center;
+}
+
+.food-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.food-desc {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.food-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0 10px;
+}
+
+.food-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #e53935;
+}
+
+.add-btn {
+  background: transparent;
+  border: 2px solid #e53935;
+  color: #e53935;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.add-btn:hover {
+  background: #e53935;
+  color: #fff;
+}

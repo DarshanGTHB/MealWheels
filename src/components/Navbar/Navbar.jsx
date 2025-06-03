@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/frontend_assets/assets";
 
+
 const Navbar = () => {
   let [menu, setMenu] = useState('');
-  
   return (
     <div className="navbar">
       <div className="navbar-logo">
         <img src={assets.meal_wheels} alt="" />
       </div>
       <ul className="navbar-menu">
-        <li onClick={()=>setMenu('home')} className={menu=='home' && 'active-menu'}>Home</li>
-        <li onClick={()=>setMenu('menu')} className={menu=='menu' && 'active-menu'}>Menu</li>
-        <li onClick={()=>setMenu('mobile-app')} className={menu=='mobile-app' && 'active-menu'}>Mobile App</li>
-        <li onClick={()=>setMenu('contact-us')} className={menu=='contact-us' && 'active-menu'}>Contact Us</li>
+        <li onClick={()=>setMenu('home')} className={menu=='home' ? 'active-nav-menu' : ''}>Home</li>
+        <li onClick={()=>setMenu('menu')} className={menu=='menu' ? 'active-nav-menu' : ''}>Menu</li>
+        <li onClick={()=>setMenu('mobile-app')} className={menu=='mobile-app' ? 'active-nav-menu' : ''}>Mobile App</li>
+        <li onClick={()=>setMenu('contact-us')} className={menu=='contact-us' ? 'active-nav-menu' : ''}>Contact Us</li>
       </ul>
       <div className="navbar-actions">
         <div className="search-bar">

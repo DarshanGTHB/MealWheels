@@ -1,0 +1,118 @@
+.poster {
+  margin: auto;
+  margin-top: 20px;
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 24px;
+  /* box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13); */
+  margin-bottom: 0;
+}
+
+.poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(1) blur(0px);
+  transition: filter 0.4s;
+}
+
+.header-overlay-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.head-line,
+.msg-line,
+.cta-btn {
+  opacity: 0;
+  animation: fadeIn 3s forwards;
+}
+
+.head-line {
+  animation-delay: 0.2s;
+  color: #fff;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.msg-line {
+  animation-delay: 1s;
+  color: #f9f9f9;
+  font-size: 1.15rem;
+  margin-bottom: 32px;
+  /* text-align: center; */
+  max-width: 520px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+}
+
+.cta-btn {
+  animation-delay: 2s;
+  pointer-events: auto;
+}
+
+.cta-btn button {
+  background: linear-gradient(90deg, #ff7043 0%, #ffa726 100%);
+  color: #fff;
+  border: none;
+  border-radius: 32px;
+  padding: 14px 44px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(255, 112, 67, 0.18);
+  transition: background 0.2s, transform 1s, box-shadow 0.2s;
+  outline: none;
+  letter-spacing: 1px;
+}
+
+.cta-btn button:hover {
+  background: linear-gradient(90deg, #ffa726 0%, #ff7043 100%);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(255, 112, 67, 0.22);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 700px) {
+  .poster {
+    height: 220px;
+    border-radius: 12px;
+  }
+  .head-line {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  .msg-line {
+    font-size: 0.98rem;
+    margin-bottom: 18px;
+    max-width: 90vw;
+  }
+  .cta-btn button {
+    padding: 8px 22px;
+    font-size: 1rem;
+  }
+}
