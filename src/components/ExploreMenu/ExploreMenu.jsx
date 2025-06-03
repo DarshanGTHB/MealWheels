@@ -3,8 +3,8 @@ import { menu_list } from "../../assets/frontend_assets/assets";
 import "./ExploreMenu.css";
 import { DisplayFood } from "../DisplayFood/DisplayFood";
 const ExploreMenu = () => {
-  let [activeMenu, setActiveMenu] = useState("");
-
+  let [activeMenu, setActiveMenu] = useState("ALL");
+  
   // console.log(menu_list)
   return (
     <div className="explore-menu" id="explore-menu-section">
@@ -17,7 +17,7 @@ const ExploreMenu = () => {
                 className="menu-image"
                 onClick={() =>
                   activeMenu == ele.menu_name
-                    ? setActiveMenu("")
+                    ? setActiveMenu("ALL")
                     : setActiveMenu(ele.menu_name)
                 }
               >
@@ -31,13 +31,13 @@ const ExploreMenu = () => {
                   }
                 />
               </div>
-              <p className="menu-name">{ele.menu_name}</p>
+              <p className="menu-name" style={activeMenu == ele.menu_name ? {color:'black'} : {}} >{ele.menu_name}</p>
             </li>
           );
         })}
       </ul>
 
-      <DisplayFood />
+      <DisplayFood category={activeMenu}/>
     </div>
   );
 };
