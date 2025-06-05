@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import './Cart.css'
 import StoreContext from '../../context/storeContext';
 // Mock food data with placeholder images
-const foodList0 = [
+let foodList0 = [
   {
     id: 1,
     title: 'Grilled Salmon',
@@ -22,13 +22,22 @@ const foodList0 = [
 ];
 
 export default function Cart() {
-  const [items, setItems] = useState(foodList0);
+    const {foodList, cart, incCartItem, decCartItem} = useContext(StoreContext);
+    const cartIds = Object.keys(cart);
+    let filtered = foodList.filter((ele)=>{
+        return cartIds.includes(ele._id);
+    })
+    filtered = filtered.map((ele, id) =>{
+        return {...ele, quantity : cart[ele._id] };
+    })
+
+  const [items, setItems] = useState(filtered);
   const [promoCode, setPromoCode] = useState('');
   const [discount, setDiscount] = useState(0);
   const [isPromoApplied, setIsPromoApplied] = useState(false);
 
-  const {foodList, cart} = useContext(StoreContext);
-  console.log('from car : ', foodList, cart);
+  console.log("filterded : ", filtered)
+//   console.log('from car : ', foodList, cart, cartIds);
     
   const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const deliveryFee = 40;
@@ -73,6 +82,7 @@ export default function Cart() {
 
         <div className="cart-content">
           {/* Cart Items */}
+
           <div className="cart-items">
             {items.map((item, index) => (
               <div 
@@ -83,14 +93,14 @@ export default function Cart() {
                 <div className="item-image-wrapper">
                   <img 
                     src={item.image} 
-                    alt={item.title}
+                    alt={item.name}
                     className="item-image"
                   />
                   <div className="quantity-badge">{item.quantity}</div>
                 </div>
 
                 <div className="item-details">
-                  <h3 className="item-title">{item.title}</h3>
+                  <h3 className="item-title">{item.name}</h3>
                   <p className="item-description">{item.description}</p>
                   <div className="item-pricing">
                     <span className="item-total">₹{item.price * item.quantity}</span>
@@ -101,14 +111,14 @@ export default function Cart() {
                 <div className="item-controls">
                   <div className="quantity-controls">
                     <button 
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() => decCartItem(item._id)}
                       className="qty-btn"
                     >
                       -
                     </button>
                     <span className="qty-display">{item.quantity}</span>
                     <button 
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      onClick={() => incCartItem(item._id)}
                       className="qty-btn"
                     >
                       +

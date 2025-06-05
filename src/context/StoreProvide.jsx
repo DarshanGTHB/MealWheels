@@ -5,7 +5,7 @@ import { food_list } from "../assets/frontend_assets/assets";
 const StoreProvide = ({ children }) => {
   let foodList = food_list;
 
-  let [cart, setCart] = useState({});
+  let [cart, setCart] = useState({1:1, 2:2});
 
   let incCartItem = (item_id) => {
     setCart((prevCart) => ({
