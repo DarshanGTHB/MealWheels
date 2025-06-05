@@ -28,7 +28,8 @@
   padding: 0;
 }
 
-.navbar-menu li {
+.navbar-menu a {
+  text-decoration: none;
   font-size: 1.1rem;
   color: #333;
   cursor: pointer;
@@ -36,7 +37,7 @@
   transition: color 0.2s;
 }
 
-.navbar-menu li::after {
+.navbar-menu a::after {
   content: "";
   display: block;
   width: 0;
@@ -48,12 +49,12 @@
   bottom: -6px;
 }
 
-.navbar-menu li:hover {
+.navbar-menu a:hover {
   color: #ff7043;
   transform: scale(1.06);
 }
 
-.navbar-menu li:hover::after {
+.navbar-menu a:hover::after {
   width: 100%;
 }
 

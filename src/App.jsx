@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar/Navbar";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import StoreProvide from "./context/StoreProvide";
+import Footer from "./pages/Footer/Footer";
+import Cart from "./pages/Cart/Cart";
 const App = () => {
   return (
     <StoreProvide>
@@ -11,8 +13,10 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
+        <Footer/>
     </StoreProvide>
   );
 };

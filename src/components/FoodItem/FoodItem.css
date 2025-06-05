@@ -84,7 +84,7 @@
   color: #e53935;
 }
 
-.add-btn {
+.add-btn-0 {
   bottom: 10px;
   right: 10px;
   position: absolute;
@@ -98,10 +98,77 @@
   transition: 0.3s ease;
   background-color: white;
   font-size: large;
+  background: white(135, 208, 135);
   border: transparent;
+  width: 25px;
+  text-align: center;
+  z-index: 5;
+}
+.add-btn-1 {
+  bottom: 10px;
+  right: 10px;
+  position: absolute;
+  background: transparent;
+  /* border: 2px solid #e53935; */
+  /* color: #e53935; */
+  /* padding: 6px 14px; */
+  border-radius: 50%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  background-color: white;
+  font-size: large;
+  background: rgb(135, 208, 135);
+  border: transparent;
+  width: 25px;
+  text-align: center;
+  z-index: 5;
+  color: white;
 }
 
-.add-btn:hover {
-  background: #e53935;
+.dec-btn {
+  position: absolute;
+  background: transparent;
+  background: transparent;
+  right: 50px;
+  bottom: 10px;
+  width: 25px;
+  text-align: center;
+  /* border: 2px solid #e53935; */
+  /* color: #e53935; */
+  /* padding: 6px 14px; */
+  border-radius: 50%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  background-color: white;
+  font-size: large;
+  border: transparent;
+  background: rgb(204, 96, 96);
+  z-index: 5;
+  color: white;
+}
+.add-btn-0:hover {
+  background: rgb(135, 208, 135);
   color: #fff;
+}
+.add-btn-1:hover {
+  background: rgb(135, 208, 135);
+  color: #fff;
+}
+.dec-btn:hover {
+  background: rgb(204, 96, 96);
+  color: #fff;
+}
+
+.white-bcg {
+  position: absolute;
+  width: 73px;
+  height: 27px;
+  bottom: 8px;
+  right: 6px;
+  background: #e8e8e8;
+  border-radius: 13px;
+  text-align: center;
+  line-height: 27px;
 }
