@@ -18,7 +18,7 @@ const Navbar = () => {
       </div>
       <ul className="navbar-menu">
         <Link to="/" onClick={()=>setMenu('home')} className={menu=='home' ? 'active-nav-menu' : ''}>Home</Link>
-        <a href="#explore-menu-section" onClick={()=>setMenu('menu')} className={menu=='menu' ? 'active-nav-menu' : ''}>Menu</a>
+        <a href="/#explore-menu-section" onClick={()=>setMenu('menu')} className={menu=='menu' ? 'active-nav-menu' : ''}>Menu</a>
         <a href="#app-download" onClick={()=>setMenu('mobile-app')} className={menu=='mobile-app' ? 'active-nav-menu' : ''}>Mobile App</a>
         <a href="#app-download" onClick={()=>setMenu('contact-us')} className={menu=='contact-us' ? 'active-nav-menu' : ''}>Contact Us</a>
       </ul>

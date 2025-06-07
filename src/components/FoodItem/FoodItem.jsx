@@ -6,8 +6,8 @@ import StoreContext from "../../context/storeContext";
 
 const FoodItem = ({ food_item }) => {
   let { incCartItem, decCartItem, cart } = useContext(StoreContext);
-  // console.log(" ", food_item)
-  let [cnt, setCnt] = useState(0);
+
+
   const { _id, name, image, price, description } = food_item;
   // console.log(cart);
   return (

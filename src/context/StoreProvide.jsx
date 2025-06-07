@@ -5,7 +5,8 @@ import { food_list } from "../assets/frontend_assets/assets";
 const StoreProvide = ({ children }) => {
   let foodList = food_list;
 
-  let [cart, setCart] = useState({1:1, 2:2});
+  let [cart, setCart] = useState({});
+  // let [cartItems, setCartItems] = useState([]);
 
   let incCartItem = (item_id) => {
     setCart((prevCart) => ({
@@ -30,12 +31,26 @@ const StoreProvide = ({ children }) => {
     });
   };
 
-  useEffect(()=>{
-    console.log(cart)
-  }, [cart]);
+  let removeItem = (item_id) => {
+    setCart( (prevCart) =>{
+      let updatedCart = {...prevCart};
+      delete updatedCart[item_id];
+      return updatedCart;
+    } )
+  }
+
+
 
   return (
-    <StoreContext.Provider value={{ foodList, cart, incCartItem, decCartItem }}>
+    <StoreContext.Provider
+      value={{
+        foodList,
+        cart,
+        incCartItem,
+        decCartItem,
+        removeItem
+      }}
+    >
       {children}
     </StoreContext.Provider>
   );
