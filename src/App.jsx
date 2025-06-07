@@ -6,18 +6,21 @@ import "./App.css";
 import StoreProvide from "./context/StoreProvide";
 import Footer from "./pages/Footer/Footer";
 import Cart from "./pages/Cart/Cart";
+import FirebaseProvider from "./context/Firebase/FirebaseProvider";
 const App = () => {
   return (
-    <StoreProvide>
-      <div className="app">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
-      </div>
-        <Footer/>
-    </StoreProvide>
+    <FirebaseProvider>
+      <StoreProvide>
+        <div className="app">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </div>
+        <Footer />
+      </StoreProvide>
+    </FirebaseProvider>
   );
 };
 

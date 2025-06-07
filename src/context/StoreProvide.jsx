@@ -6,7 +6,6 @@ const StoreProvide = ({ children }) => {
   let foodList = food_list;
 
   let [cart, setCart] = useState({});
-  // let [cartItems, setCartItems] = useState([]);
 
   let incCartItem = (item_id) => {
     setCart((prevCart) => ({
