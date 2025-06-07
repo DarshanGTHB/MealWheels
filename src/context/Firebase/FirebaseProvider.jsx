@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import firebaseApp from "./FirebaseApp";
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import FirebaseContext from "./FirebaseContext";
-import { TbRuler } from "react-icons/tb";
+
 
 const auth = getAuth(firebaseApp);
 
@@ -18,6 +25,7 @@ const FirebaseProvider = ({ children }) => {
 
     return () => unsubscribe();
   }, []);
+
   const signUpWithGoogle = async () => {
     try {
       setLoading(true);
@@ -32,6 +40,37 @@ const FirebaseProvider = ({ children }) => {
       return null;
     } finally {
       setLoading(false);
+    }
+  };
+    const signupUserWithEmailAndPassword = async (email, password) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log("User signed up:", user);
+      return user;
+    } catch (error) {
+      console.error("Error signing up:", error);
+      throw error;
+    }
+  };
+
+  const signinUserWithEmailAndPassword = async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log("User signed in:", user);
+      return user;
+    } catch (error) {
+      console.error("Error signing in:", error);
+      throw error;
     }
   };
 
@@ -50,6 +89,8 @@ const FirebaseProvider = ({ children }) => {
     error,
     signUpWithGoogle,
     signOut,
+    signinUserWithEmailAndPassword,
+    signupUserWithEmailAndPassword
   };
 
   return (
