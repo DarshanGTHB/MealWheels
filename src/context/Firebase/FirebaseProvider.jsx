@@ -10,11 +10,11 @@ import {
 } from "firebase/auth";
 import FirebaseContext from "./FirebaseContext";
 
-
 const auth = getAuth(firebaseApp);
 
 const FirebaseProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [mongoUser, setMongoUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -25,6 +25,18 @@ const FirebaseProvider = ({ children }) => {
 
     return () => unsubscribe();
   }, []);
+  console.log('mongo user : ', mongoUser)
+
+  useEffect(() => {
+    if (user && user.email) {
+      fetch(`http://localhost:5000/api/users/${encodeURIComponent(user.email)}`)
+        .then((res) => res.json())
+        .then((data) => setMongoUser(data))
+        .catch((err) => setMongoUser(null));
+    } else {
+      setMongoUser(null);
+    }
+  }, [user]);
 
   const signUpWithGoogle = async () => {
     try {
@@ -42,7 +54,7 @@ const FirebaseProvider = ({ children }) => {
       setLoading(false);
     }
   };
-    const signupUserWithEmailAndPassword = async (email, password) => {
+  const signupUserWithEmailAndPassword = async (email, password) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -85,12 +97,13 @@ const FirebaseProvider = ({ children }) => {
 
   const value = {
     user,
+    mongoUser,
     loading,
     error,
     signUpWithGoogle,
     signOut,
     signinUserWithEmailAndPassword,
-    signupUserWithEmailAndPassword
+    signupUserWithEmailAndPassword,
   };
 
   return (

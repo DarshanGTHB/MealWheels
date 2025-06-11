@@ -10,14 +10,12 @@ import SignInPopup from "../SignInPopup/SignInPopup";
 const Navbar = () => {
   let [menu, setMenu] = useState("");
   let [showDropdown, setShowDropdown] = useState(false);
-  // ...existing code...
-
-
 
   let { cart } = useContext(StoreContext);
 
-  let { user, signUpWithGoogle, signOut, loading } = useContext(FirebaseContext);
-  console.log("user : ", user);
+  // let { obje } = useContext(FirebaseContext);
+  let { user, signUpWithGoogle, signOut, loading, mongoUser } = useContext(FirebaseContext);
+  console.log("M-user : ", mongoUser);
 
  
 
@@ -120,9 +118,6 @@ const Navbar = () => {
               )}
             </div>
           ) : (
-            // <button onClick={signUpWithGoogle} className="sign-in-btn">
-            //   Sign In
-            // </button>
             <SignInPopup/>
           ))}
         </div>

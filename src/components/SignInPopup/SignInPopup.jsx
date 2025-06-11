@@ -15,7 +15,7 @@ const SignInPopup = () => {
   const [errors, setErrors] = useState({});
   const [generalError, setGeneralError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  
+
   const {
     signupUserWithEmailAndPassword,
     signinUserWithEmailAndPassword,
@@ -24,8 +24,10 @@ const SignInPopup = () => {
 
   // Generate random avatar URL
   const generateAvatarUrl = (email) => {
-    const seed = email.split('@')[0];
-    return `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(seed)}&backgroundColor=667eea,764ba2,f093fb,4ade80,fbbf24,f87171`;
+    const seed = email.split("@")[0];
+    return `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
+      seed
+    )}&backgroundColor=667eea,764ba2,f093fb,4ade80,fbbf24,f87171`;
   };
 
   // Email validation
@@ -56,7 +58,7 @@ const SignInPopup = () => {
     const newErrors = { ...errors };
 
     switch (name) {
-      case 'email':
+      case "email":
         if (!value.trim()) {
           newErrors.email = "Email is required";
         } else if (!validateEmail(value)) {
@@ -66,7 +68,7 @@ const SignInPopup = () => {
         }
         break;
 
-      case 'password':
+      case "password":
         if (!value.trim()) {
           newErrors.password = "Password is required";
         } else if (!isLoginMode) {
@@ -76,11 +78,14 @@ const SignInPopup = () => {
           } else {
             delete newErrors.password;
           }
-          
+
           // Also validate confirm password if it exists
           if (formData.confirmPassword && value !== formData.confirmPassword) {
             newErrors.confirmPassword = "Passwords do not match";
-          } else if (formData.confirmPassword && value === formData.confirmPassword) {
+          } else if (
+            formData.confirmPassword &&
+            value === formData.confirmPassword
+          ) {
             delete newErrors.confirmPassword;
           }
         } else {
@@ -88,7 +93,7 @@ const SignInPopup = () => {
         }
         break;
 
-      case 'confirmPassword':
+      case "confirmPassword":
         if (!isLoginMode) {
           if (!value.trim()) {
             newErrors.confirmPassword = "Please confirm your password";
@@ -112,10 +117,10 @@ const SignInPopup = () => {
     setGeneralError("");
     setSuccessMessage("");
     setErrors({}); // Clear previous errors
-    
+
     // Validate all fields before submission
     const newErrors = {};
-    
+
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!validateEmail(formData.email)) {
@@ -155,8 +160,11 @@ const SignInPopup = () => {
         }, 1500);
       } else {
         // Sign Up
-        const userCredential = await signupUserWithEmailAndPassword(formData.email, formData.password);
-        
+        const userCredential = await signupUserWithEmailAndPassword(
+          formData.email,
+          formData.password
+        );
+
         // Set avatar URL for new user
         if (userCredential && userCredential.user) {
           const avatarUrl = generateAvatarUrl(formData.email);
@@ -164,8 +172,10 @@ const SignInPopup = () => {
           // You might need to update user profile here depending on your Firebase setup
           // await updateProfile(userCredential.user, { photoURL: avatarUrl });
         }
-        
-        setSuccessMessage("Account created successfully! Welcome to our platform.");
+
+        setSuccessMessage(
+          "Account created successfully! Welcome to our platform."
+        );
         setTimeout(() => {
           setShowPopup(false);
           resetForm();
@@ -173,53 +183,62 @@ const SignInPopup = () => {
       }
     } catch (error) {
       console.error("Authentication error:", error);
-      
+
       // Handle specific Firebase errors
       const newErrors = {};
       let hasFieldError = false;
-      
+
       switch (error.code) {
-        case 'auth/email-already-in-use':
-          newErrors.email = "This email is already registered. Try signing in instead.";
+        case "auth/email-already-in-use":
+          newErrors.email =
+            "This email is already registered. Try signing in instead.";
           hasFieldError = true;
           break;
-        case 'auth/invalid-email':
+        case "auth/invalid-email":
           newErrors.email = "Invalid email address format.";
           hasFieldError = true;
           break;
-        case 'auth/weak-password':
-          newErrors.password = "Password is too weak. Please choose a stronger password.";
+        case "auth/weak-password":
+          newErrors.password =
+            "Password is too weak. Please choose a stronger password.";
           hasFieldError = true;
           break;
-        case 'auth/user-not-found':
+        case "auth/user-not-found":
           newErrors.email = "No account found with this email address.";
           hasFieldError = true;
           break;
-        case 'auth/wrong-password':
+        case "auth/wrong-password":
           newErrors.password = "Incorrect password. Please try again.";
           hasFieldError = true;
           break;
-        case 'auth/invalid-credential':
+        case "auth/invalid-credential":
           if (isLoginMode) {
-            newErrors.email = "Invalid email or password. Please check your credentials.";
+            newErrors.email =
+              "Invalid email or password. Please check your credentials.";
           } else {
             newErrors.email = "Invalid email format.";
           }
           hasFieldError = true;
           break;
-        case 'auth/user-disabled':
-          setGeneralError("This account has been disabled. Please contact support.");
+        case "auth/user-disabled":
+          setGeneralError(
+            "This account has been disabled. Please contact support."
+          );
           break;
-        case 'auth/operation-not-allowed':
-          setGeneralError("Email/password accounts are not enabled. Please contact support.");
+        case "auth/operation-not-allowed":
+          setGeneralError(
+            "Email/password accounts are not enabled. Please contact support."
+          );
           break;
-        case 'auth/too-many-requests':
+        case "auth/too-many-requests":
           setGeneralError("Too many failed attempts. Please try again later.");
           break;
-        case 'auth/network-request-failed':
-          setGeneralError("Network error. Please check your internet connection and try again.");
+        case "auth/network-request-failed":
+          setGeneralError(
+            "Network error. Please check your internet connection and try again."
+          );
           break;
-        case 'auth/internal-error':
+        case "auth/internal-error":
           setGeneralError("An internal error occurred. Please try again.");
           break;
         default:
@@ -230,7 +249,7 @@ const SignInPopup = () => {
             setGeneralError("An unexpected error occurred. Please try again.");
           }
       }
-      
+
       // Set field-specific errors if any
       if (hasFieldError) {
         setErrors(newErrors);
@@ -246,7 +265,22 @@ const SignInPopup = () => {
     setIsLoading(true);
 
     try {
-      await signUpWithGoogle();
+      const { displayName, email, photoURL, uid } = await signUpWithGoogle();
+
+      const res = await fetch("http://localhost:5000/api/save-user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: displayName,
+          email,
+          photoURL,
+          firebaseUid: uid,
+        }),
+      }); 
+      const data = await res.json();
+
+      console.log('mongo contest : ', data);
+
       setSuccessMessage("Successfully signed in with Google!");
       setTimeout(() => {
         setShowPopup(false);
@@ -254,24 +288,27 @@ const SignInPopup = () => {
       }, 1500);
     } catch (error) {
       console.error("Google sign-in error:", error);
-      
+
       let errorMessage = "Google sign-in failed. Please try again.";
-      
+
       switch (error.code) {
-        case 'auth/account-exists-with-different-credential':
-          errorMessage = "An account already exists with this email using a different sign-in method. Try signing in with email/password instead.";
+        case "auth/account-exists-with-different-credential":
+          errorMessage =
+            "An account already exists with this email using a different sign-in method. Try signing in with email/password instead.";
           break;
-        case 'auth/cancelled-popup-request':
-        case 'auth/popup-closed-by-user':
+        case "auth/cancelled-popup-request":
+        case "auth/popup-closed-by-user":
           errorMessage = "Sign-in was cancelled. Please try again.";
           break;
-        case 'auth/popup-blocked':
-          errorMessage = "Pop-up was blocked by your browser. Please allow pop-ups and try again.";
+        case "auth/popup-blocked":
+          errorMessage =
+            "Pop-up was blocked by your browser. Please allow pop-ups and try again.";
           break;
-        case 'auth/network-request-failed':
-          errorMessage = "Network error. Please check your internet connection and try again.";
+        case "auth/network-request-failed":
+          errorMessage =
+            "Network error. Please check your internet connection and try again.";
           break;
-        case 'auth/internal-error':
+        case "auth/internal-error":
           errorMessage = "An internal error occurred. Please try again.";
           break;
         default:
@@ -280,7 +317,7 @@ const SignInPopup = () => {
             errorMessage = `Google sign-in failed: ${error.message}`;
           }
       }
-      
+
       setGeneralError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -289,7 +326,7 @@ const SignInPopup = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
+
     setFormData({
       ...formData,
       [name]: value,
@@ -297,7 +334,7 @@ const SignInPopup = () => {
 
     // Clear previous error and validate on change
     validateField(name, value);
-    
+
     // Clear general error when user starts typing
     if (generalError) {
       setGeneralError("");
@@ -345,16 +382,12 @@ const SignInPopup = () => {
 
             {/* General Error Message */}
             {generalError && (
-              <div className="error-message general-error">
-                {generalError}
-              </div>
+              <div className="error-message general-error">{generalError}</div>
             )}
 
             {/* Success Message */}
             {successMessage && (
-              <div className="success-message">
-                {successMessage}
-              </div>
+              <div className="success-message">{successMessage}</div>
             )}
 
             <form className="auth-form" onSubmit={handleSubmit}>
@@ -368,7 +401,7 @@ const SignInPopup = () => {
                   onChange={handleInputChange}
                   placeholder="Enter your email"
                   required
-                  className={errors.email ? 'error' : ''}
+                  className={errors.email ? "error" : ""}
                   disabled={isLoading}
                 />
                 {errors.email && (
@@ -386,7 +419,7 @@ const SignInPopup = () => {
                   onChange={handleInputChange}
                   placeholder="Enter your password"
                   required
-                  className={errors.password ? 'error' : ''}
+                  className={errors.password ? "error" : ""}
                   disabled={isLoading}
                 />
                 {errors.password && (
@@ -405,17 +438,19 @@ const SignInPopup = () => {
                     onChange={handleInputChange}
                     placeholder="Confirm your password"
                     required
-                    className={errors.confirmPassword ? 'error' : ''}
+                    className={errors.confirmPassword ? "error" : ""}
                     disabled={isLoading}
                   />
                   {errors.confirmPassword && (
-                    <span className="error-message">{errors.confirmPassword}</span>
+                    <span className="error-message">
+                      {errors.confirmPassword}
+                    </span>
                   )}
                 </div>
               )}
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="create-account-btn"
                 disabled={isLoading}
               >
@@ -424,10 +459,15 @@ const SignInPopup = () => {
                   // 'Loading...'
                   // <></>
                   // <h1>Hello</h1>
-                  isLoginMode ? <span>Signing in ...</span> : <span>Creating ...</span>
-                  
+                  isLoginMode ? (
+                    <span>Signing in ...</span>
+                  ) : (
+                    <span>Creating ...</span>
+                  )
+                ) : isLoginMode ? (
+                  "Sign In"
                 ) : (
-                  isLoginMode ? "Sign In" : "Create Account"
+                  "Create Account"
                 )}
               </button>
             </form>
@@ -436,8 +476,8 @@ const SignInPopup = () => {
               <span>or</span>
             </div>
 
-            <button 
-              onClick={handleGoogleSignIn} 
+            <button
+              onClick={handleGoogleSignIn}
               className="google-signin-btn"
               disabled={isLoading}
             >
