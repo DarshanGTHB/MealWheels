@@ -15,7 +15,7 @@ const Navbar = () => {
 
   // let { obje } = useContext(FirebaseContext);
   let { user, signUpWithGoogle, signOut, loading, mongoUser } = useContext(FirebaseContext);
-  console.log("M-user : ", mongoUser);
+  // console.log("M-user : ", mongoUser);
 
  
 

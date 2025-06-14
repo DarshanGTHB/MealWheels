@@ -1,11 +1,31 @@
 import React, { useEffect, useState } from "react";
 import StoreContext from "./storeContext";
-import { food_list } from "../assets/frontend_assets/assets";
 
 const StoreProvide = ({ children }) => {
-  let foodList = food_list;
+  const [foodList, setFoodList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [cart, setCart] = useState({});
 
-  let [cart, setCart] = useState({});
+  useEffect(() => {
+    const fetchFoodList = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:5000/api/items');
+        const data = await response.json();
+        setFoodList(data.items);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching food list:', err);
+        setError('Failed to load menu items');
+        setFoodList([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFoodList();
+  }, []);
 
   let incCartItem = (item_id) => {
     setCart((prevCart) => ({
@@ -38,12 +58,12 @@ const StoreProvide = ({ children }) => {
     } )
   }
 
-
-
   return (
     <StoreContext.Provider
       value={{
         foodList,
+        loading,
+        error,
         cart,
         incCartItem,
         decCartItem,

@@ -32,10 +32,13 @@ const SignInPopup = () => {
 
   // Email validation
   const validateEmail = (email) => {
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
+
+  
   // Password validation
   const validatePassword = (password) => {
     if (password.length < 6) {

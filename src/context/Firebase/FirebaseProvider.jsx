@@ -25,7 +25,7 @@ const FirebaseProvider = ({ children }) => {
 
     return () => unsubscribe();
   }, []);
-  console.log('mongo user : ', mongoUser)
+  // console.log('mongo user : ', mongoUser)
 
   useEffect(() => {
     if (user && user.email) {
