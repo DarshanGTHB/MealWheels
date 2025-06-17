@@ -21,6 +21,7 @@ const SignInPopup = () => {
     signinUserWithEmailAndPassword,
     signUpWithGoogle,
   } = useContext(FirebaseContext);
+  
 
   // Generate random avatar URL
   const generateAvatarUrl = (email) => {
