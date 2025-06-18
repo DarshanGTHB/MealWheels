@@ -1,40 +1,80 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import StoreContext from "./storeContext";
+import FirebaseContext from "./Firebase/FirebaseContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const StoreProvide = ({ children }) => {
   const [foodList, setFoodList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cart, setCart] = useState({});
-
+  const url = "http://localhost:5000/api";
+  const { user } = useContext(FirebaseContext);
   useEffect(() => {
     const fetchFoodList = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/items');
+        const response = await fetch(url + "/items");
         const data = await response.json();
         setFoodList(data.items);
         setError(null);
       } catch (err) {
-        console.error('Error fetching food list:', err);
-        setError('Failed to load menu items');
+        console.error("Error fetching food list:", err);
+        setError("Failed to load menu items");
         setFoodList([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchFoodList();
-  }, []);
+    const fetchCart = async () =>{
+      const response = await axios.get(url + "/cart/cartData", {
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+      });
+      if (response.status === 200 ) {
+        setCart(response.data.cart);
+        
+      } else {
+        toast.error("Failed to load cart data");
+      }
+    };
 
-  let incCartItem = (item_id) => {
+    fetchFoodList();
+    if (user) {
+      fetchCart();
+    }else{
+      setCart({});
+    }
+  }, [user]);
+
+  let incCartItem = async (item_id) => {
     setCart((prevCart) => ({
       ...prevCart,
       [item_id]: prevCart[item_id] ? prevCart[item_id] + 1 : 1,
     }));
+    if (user) {
+      const response = await axios.post(
+        url + "/cart/add",
+        { item_id }, 
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`, 
+          },
+        }
+      );
+      // console.log(response)
+      if (response.data.success) {
+        toast.success("item Added to Cart");
+      } else {
+        toast.error("Something went wrong");
+      }
+    }
   };
 
-  let decCartItem = (item_id) => {
+  let decCartItem = async (item_id) => {
     setCart((prevCart) => {
       if (prevCart[item_id]) {
         const updatedCart = { ...prevCart };
@@ -48,15 +88,49 @@ const StoreProvide = ({ children }) => {
         return prevCart;
       }
     });
+     if (user) {
+      const response = await axios.post(
+        url + "/cart/remove",
+        { item_id }, 
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`, 
+          },
+        }
+      );
+      // console.log(response)
+      if (response.data.success) {
+        toast.success("item removed");
+      } else {
+        toast.error("Something went wrong");
+      }
+    }
   };
 
-  let removeItem = (item_id) => {
-    setCart( (prevCart) =>{
-      let updatedCart = {...prevCart};
+  let removeItem =  async (item_id) => {
+    setCart((prevCart) => {
+      let updatedCart = { ...prevCart };
       delete updatedCart[item_id];
       return updatedCart;
-    } )
-  }
+    });
+     if (user) {
+      const response = await axios.post(
+        url + "/cart/remove?all=true",
+        { item_id }, 
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`, 
+          },
+        }
+      );
+      // console.log(response)
+      if (response.data.success ) {
+        toast.success("item removed");
+      } else {
+        toast.error("Something went wrong");
+      }
+    }
+  };
 
   return (
     <StoreContext.Provider
@@ -67,7 +141,7 @@ const StoreProvide = ({ children }) => {
         cart,
         incCartItem,
         decCartItem,
-        removeItem
+        removeItem,
       }}
     >
       {children}

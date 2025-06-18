@@ -7,6 +7,7 @@ import StoreProvide from "./context/StoreProvide";
 import Footer from "./pages/Footer/Footer";
 import Cart from "./pages/Cart/Cart";
 import FirebaseProvider from "./context/Firebase/FirebaseProvider";
+import { ToastContainer } from "react-toastify";
 const App = () => {
   return (
     <FirebaseProvider>
@@ -19,6 +20,7 @@ const App = () => {
           </Routes>
         </div>
         <Footer />
+         <ToastContainer position="top-right" autoClose={3000} />
       </StoreProvide>
     </FirebaseProvider>
   );
