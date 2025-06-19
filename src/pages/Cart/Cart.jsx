@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Cart.css";
 import StoreContext from "../../context/storeContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const PROMO_CODES = {
   SAVE10: 0.1,
   SAVE20: 0.2,
@@ -58,6 +60,8 @@ export default function Cart() {
     setIsPromoApplied(false);
     setPromoError("");
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className="cart-container">
@@ -257,6 +261,15 @@ export default function Cart() {
               <button
                 disabled={Object.keys(cart).length === 0}
                 className="checkout-btn"
+                onClick={()=>{
+                  // use navigate
+                  if(Object.keys(cart).length === 0) {
+                    toast.error("Your cart is empty!");
+                  } else {
+                    navigate("/place-order");
+                  }
+
+                }}
               >
                 <svg
                   width="20"

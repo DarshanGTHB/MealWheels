@@ -8,6 +8,9 @@ import Footer from "./pages/Footer/Footer";
 import Cart from "./pages/Cart/Cart";
 import FirebaseProvider from "./context/Firebase/FirebaseProvider";
 import { ToastContainer } from "react-toastify";
+import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
+import Verify from "./pages/Verify/Verify";
+
 const App = () => {
   return (
     <FirebaseProvider>
@@ -17,6 +20,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/place-order" element={<PlaceOrder />} />
+            <Route path="/verify" element={<Verify />} />
           </Routes>
         </div>
         <Footer />

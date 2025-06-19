@@ -9,13 +9,13 @@ const StoreProvide = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cart, setCart] = useState({});
-  const url = "http://localhost:5000/api";
+  const backendUrl = "http://localhost:5000/api";
   const { user } = useContext(FirebaseContext);
   useEffect(() => {
     const fetchFoodList = async () => {
       try {
         setLoading(true);
-        const response = await fetch(url + "/items");
+        const response = await fetch(backendUrl + "/items");
         const data = await response.json();
         setFoodList(data.items);
         setError(null);
@@ -29,7 +29,7 @@ const StoreProvide = ({ children }) => {
     };
 
     const fetchCart = async () =>{
-      const response = await axios.get(url + "/cart/cartData", {
+      const response = await axios.get(backendUrl + "/cart/cartData", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -57,7 +57,7 @@ const StoreProvide = ({ children }) => {
     }));
     if (user) {
       const response = await axios.post(
-        url + "/cart/add",
+        backendUrl + "/cart/add",
         { item_id }, 
         {
           headers: {
@@ -90,7 +90,7 @@ const StoreProvide = ({ children }) => {
     });
      if (user) {
       const response = await axios.post(
-        url + "/cart/remove",
+        backendUrl + "/cart/remove",
         { item_id }, 
         {
           headers: {
@@ -115,7 +115,7 @@ const StoreProvide = ({ children }) => {
     });
      if (user) {
       const response = await axios.post(
-        url + "/cart/remove?all=true",
+        backendUrl + "/cart/remove?all=true",
         { item_id }, 
         {
           headers: {
@@ -139,6 +139,7 @@ const StoreProvide = ({ children }) => {
         loading,
         error,
         cart,
+        backendUrl,
         incCartItem,
         decCartItem,
         removeItem,
