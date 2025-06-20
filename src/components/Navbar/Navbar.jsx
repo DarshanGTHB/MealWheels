@@ -12,7 +12,7 @@ const Navbar = () => {
   let [showDropdown, setShowDropdown] = useState(false);
 
   let { cart } = useContext(StoreContext);
-
+  // console.log("Cart : frome navebar.jsx : 15 ", cart);
   // let { obje } = useContext(FirebaseContext);
   let { user, signUpWithGoogle, signOut, loading, mongoUser } = useContext(FirebaseContext);
   // console.log("M-user : ", mongoUser);

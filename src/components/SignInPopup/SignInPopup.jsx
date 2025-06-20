@@ -186,7 +186,7 @@ const SignInPopup = () => {
         }, 1500);
       }
     } catch (error) {
-      console.error("Authentication error:", error);
+      // console.error("Authentication error:", error);
 
       // Handle specific Firebase errors
       const newErrors = {};
@@ -291,7 +291,7 @@ const SignInPopup = () => {
         resetForm();
       }, 1500);
     } catch (error) {
-      console.error("Google sign-in error:", error);
+      // console.error("Google sign-in error:", error);
 
       let errorMessage = "Google sign-in failed. Please try again.";
 

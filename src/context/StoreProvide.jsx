@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 import StoreContext from "./storeContext";
 import FirebaseContext from "./Firebase/FirebaseContext";
 import axios from "axios";
@@ -20,7 +20,7 @@ const StoreProvide = ({ children }) => {
         setFoodList(data.items);
         setError(null);
       } catch (err) {
-        console.error("Error fetching food list:", err);
+        // console.error("Error fetching food list:", err);
         setError("Failed to load menu items");
         setFoodList([]);
       } finally {
@@ -49,6 +49,11 @@ const StoreProvide = ({ children }) => {
       setCart({});
     }
   }, [user]);
+
+  useEffect(() => {
+    // console.log("cart from StoreProvide.jsx : 30 ", cart);
+  }, [cart]);
+
 
   let incCartItem = async (item_id) => {
     setCart((prevCart) => ({

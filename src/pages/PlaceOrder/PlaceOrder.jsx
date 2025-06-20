@@ -3,9 +3,11 @@ import StoreContext from "../../context/storeContext";
 import "./PlaceOrder.css";
 import { toast } from "react-toastify";
 import axios from "axios";
+import FirebaseContext from "../../context/Firebase/FirebaseContext";
 
 const PlaceOrder = () => {
   const { cart, foodList, backendUrl } = useContext(StoreContext);
+  const { user } = useContext(FirebaseContext);
   const [address, setAddress] = useState({
     name: "",
     phone: "",
@@ -52,34 +54,38 @@ const PlaceOrder = () => {
     );
 
     if (emptyFields.length > 0) {
-      toast.error('please fill the address details properly');
+      toast.error("please fill the address details properly");
       return;
     }
 
     // Place order logic here - integrate with Stripe
-    console.log("Order details:", {
-      address,
-      total: finalTotal,
-      items: getCartItems(),
-    });
+    // console.log("Order details:", {
+    //   address,
+    //   total: finalTotal,
+    //   items: getCartItems(),
+    // });
     const items = getCartItems();
-    console.log(backendUrl + "/order/place-order");
+    // console.log(user.accessToken)
+    // console.log(backendUrl + "/orders");
     let res = await axios.post(
-  backendUrl + "/order/place-order",
-  { items: items }, // This is the POST body (data)
-  {
-    headers: { 'Content-Type': 'application/json' }
-  }
-);
+      backendUrl + "/orders",
+      { items: items }, // This is the POST body (data)
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+      }
+    );
 
-    console.log(res.data.url);
+    // console.log(res.data.url);
     window.location.href = res.data.url;
-    
-    if (res.data.success) {
-      toast.success("Order placed successfully! 🎉");
-    } else {
-      toast.error("Failed to place order. Please try again.");
-    }
+
+    // if (res.data.success) {
+    //   toast.success("Order placed successfully! 🎉");
+    // } else {
+    //   toast.error("Failed to place order. Please try again.");
+    // }
 
     // alert("Redirecting to payment... 🎉");
   };

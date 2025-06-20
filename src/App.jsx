@@ -10,6 +10,7 @@ import FirebaseProvider from "./context/Firebase/FirebaseProvider";
 import { ToastContainer } from "react-toastify";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import Verify from "./pages/Verify/Verify";
+import MyOrders from "./pages/MyOrders/MyOrders";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/place-order" element={<PlaceOrder />} />
+            <Route path="/orders" element={<MyOrders />} />
             <Route path="/verify" element={<Verify />} />
           </Routes>
         </div>
