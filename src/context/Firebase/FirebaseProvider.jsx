@@ -62,7 +62,7 @@ const FirebaseProvider = ({ children }) => {
         password
       );
       const user = userCredential.user;
-      console.log("User signed up:", user);
+      // console.log("User signed up:", user);
       return user;
     } catch (error) {
       console.error("Error signing up:", error);
@@ -78,7 +78,7 @@ const FirebaseProvider = ({ children }) => {
         password
       );
       const user = userCredential.user;
-      console.log("User signed in:", user);
+      // console.log("User signed in:", user);
       return user;
     } catch (error) {
       console.error("Error signing in:", error);

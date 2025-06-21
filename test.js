@@ -37,7 +37,7 @@ let items = [
 let [item1, item2, item3] = items;
 
 
-console.log("this is cart : ", catties);
+// console.log("this is cart : ", catties);
 
 const addItem = (item) => {
   for(let i=0; i<catties.length; i++){
@@ -45,13 +45,13 @@ const addItem = (item) => {
     if (cartItem._id == item._id)
     {
         catties[i].quantity++;
-        console.log("this is cart after add : ", catties);
+        // console.log("this is cart after add : ", catties);
         return;
     }
   }
   const itemToBeAdded = { ...item, quantity: 1 };
   catties.push(itemToBeAdded);
-  console.log("this is cart after add : ", catties);
+  // console.log("this is cart after add : ", catties);
 };
 
 const decreaseItem = (item) => {
@@ -64,9 +64,9 @@ const decreaseItem = (item) => {
         // Remove item if quantity becomes 0
         catties.splice(i, 1);
       }
-      console.log("this is cart after decrease : ", catties);
+      // console.log("this is cart after decrease : ", catties);
       return;
     }
   }
-  console.log("Item not found in cart");
+  // console.log("Item not found in cart");
 };
