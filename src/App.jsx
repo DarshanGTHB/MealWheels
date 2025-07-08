@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
+// from mac
 
 const App = () => {
   return (
